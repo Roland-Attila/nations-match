@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Entity
 public class Chat {
-
     @Id
     @GeneratedValue
     private Long id;
