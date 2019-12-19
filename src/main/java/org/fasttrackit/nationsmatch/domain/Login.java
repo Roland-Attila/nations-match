@@ -2,8 +2,6 @@ package org.fasttrackit.nationsmatch.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapsId;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -14,9 +12,6 @@ public class Login {
     private String username;
     @NotBlank
     private String password;
-    @MapsId
-    @ManyToMany
-    private User user;
 
     public Long getId() {
         return id;
