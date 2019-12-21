@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-public class Chat {
+public class Conversation {
     @Id
     @GeneratedValue
     private Long id;
@@ -19,7 +19,7 @@ public class Chat {
     private boolean sent;
     private boolean seen;
     @NotNull
-    private int activeChatHeads;
+    private int activeChats;
 
     public Long getId() {
         return id;
@@ -62,11 +62,11 @@ public class Chat {
     }
 
     public int getActiveChatHeads() {
-        return activeChatHeads;
+        return activeChats;
     }
 
     public void setActiveChatHeads(int activeChatHeads) {
-        this.activeChatHeads = activeChatHeads;
+        this.activeChats = activeChatHeads;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Chat {
                 ", messageSentDate=" + messageSentDate +
                 ", sent=" + sent +
                 ", seen=" + seen +
-                ", activeChatHeads=" + activeChatHeads +
+                ", activeChatHeads=" + activeChats +
                 '}';
     }
 }

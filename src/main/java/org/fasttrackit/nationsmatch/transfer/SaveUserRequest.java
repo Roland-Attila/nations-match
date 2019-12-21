@@ -1,16 +1,10 @@
-package org.fasttrackit.nationsmatch.domain;
+package org.fasttrackit.nationsmatch.transfer;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Entity
-public class User {
-    @Id
-    @GeneratedValue
-    private long id;
+public class SaveUserRequest {
+
     @NotBlank
     private String firstName;
     @NotBlank
@@ -20,14 +14,6 @@ public class User {
     private String description;
     private String nationality;
     private String imageUrl;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -79,9 +65,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+        return "SaveUserRequest{" +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", description='" + description + '\'' +
