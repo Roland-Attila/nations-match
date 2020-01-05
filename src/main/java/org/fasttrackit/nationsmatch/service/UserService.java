@@ -1,5 +1,6 @@
 package org.fasttrackit.nationsmatch.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.persistance.UserRepository;
 import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
@@ -12,22 +13,18 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final ObjectMapper objectMapper;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ObjectMapper objectMapper) {
         this.userRepository = userRepository;
+        this.objectMapper= objectMapper;
     }
 
     public User createUser(SaveUserRequest request) {
         LOGGER.info("Creating user: {}", request);
-        User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setAge(request.getAge());
-        user.setDescription(request.getDescription());
-        user.setNationality(request.getNationality());
-        user.setImageUrl(request.getImageUrl());
+        User user = objectMapper.convertValue(request, User.class);
 
         return userRepository.save(user);
     }

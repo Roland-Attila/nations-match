@@ -1,29 +1,24 @@
-package org.fasttrackit.nationsmatch.domain;
+package org.fasttrackit.nationsmatch.transfer;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Entity
-public class Conversation {
+public class ConversationRequest {
+
     @Id
-    @GeneratedValue
     private Long id;
-    @NotBlank
-    private String groupName;
     @NotBlank
     private String userFirstName;
     @NotBlank
     private String userLastName;
+    @NotBlank
+    private String groupName;
     @NotNull
     private LocalDate messageSentDate;
     private boolean sent;
     private boolean seen;
-    @NotNull
-    private int activeChats;
 
     public Long getId() {
         return id;
@@ -31,14 +26,6 @@ public class Conversation {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
     }
 
     public String getUserFirstName() {
@@ -51,6 +38,14 @@ public class Conversation {
 
     public String getUserLastName() {
         return userLastName;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public void setUserLastName(String userLastName) {
@@ -81,25 +76,16 @@ public class Conversation {
         this.seen = seen;
     }
 
-    public int getActiveChats() {
-        return activeChats;
-    }
-
-    public void setActiveChats(int activeChats) {
-        this.activeChats = activeChats;
-    }
-
     @Override
     public String toString() {
-        return "Conversation{" +
+        return "ConversationRequest{" +
                 "id=" + id +
-                ", groupName='" + groupName + '\'' +
                 ", userFirstName='" + userFirstName + '\'' +
                 ", userLastName='" + userLastName + '\'' +
+                ", groupName='" + groupName + '\'' +
                 ", messageSentDate=" + messageSentDate +
                 ", sent=" + sent +
                 ", seen=" + seen +
-                ", activeChats=" + activeChats +
                 '}';
     }
 }
