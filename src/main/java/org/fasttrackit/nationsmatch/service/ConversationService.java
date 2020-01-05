@@ -28,13 +28,6 @@ public class ConversationService {
     public Conversation createConversation(ConversationRequest conversationRequest) {
         LOGGER.info("Creating conversation {}", conversationRequest);
         Conversation conversation = objectMapper.convertValue(conversationRequest, Conversation.class);
-//        conversation.setId(conversationHandler.getId());
-//        conversation.setName(conversationHandler.getUserFirstName());
-//        conversation.setName(conversationHandler.getUserLastName());
-//        conversation.setMessageSentDate(conversationHandler.getMessageSentDate());
-//        conversation.setSeen(conversationHandler.isSeen());
-//        conversation.setSent(conversationHandler.isSent());
-
         return conversationRepository.save(conversation);
     }
 }

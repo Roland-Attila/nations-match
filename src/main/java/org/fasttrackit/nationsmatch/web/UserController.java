@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequestMapping("/nations-match")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -26,5 +26,29 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody @Valid SaveUserRequest request) {
         User user = userService.createUser(request);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+        User user = userService.getUser(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+//    @GetMapping
+//    public ResponseEntity<Page<UserResponse>> getUsers(SaveUserRequest request, Pageable pageable) {
+//        Page<UserResponse> users = userService.getUsers(request, pageable);
+//        return new ResponseEntity<>(users, HttpStatus.OK);
+//    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody @Valid SaveUserRequest request) {
+        User user = userService.updateUser(id, request);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
