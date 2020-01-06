@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class ConversationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConversationRepository.class);
-
     private final ConversationRepository conversationRepository;
     private final ObjectMapper objectMapper;
     private ConversationRequest conversationRequest;
