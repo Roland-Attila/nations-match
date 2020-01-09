@@ -12,6 +12,7 @@ public class SaveUserRequest {
     @NotNull
     private Integer age;
     private String description;
+    @NotBlank
     private String nationality;
     private String imageUrl;
 

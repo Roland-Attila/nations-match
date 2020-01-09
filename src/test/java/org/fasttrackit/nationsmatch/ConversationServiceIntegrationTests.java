@@ -2,7 +2,7 @@ package org.fasttrackit.nationsmatch;
 
 import org.fasttrackit.nationsmatch.domain.Conversation;
 import org.fasttrackit.nationsmatch.service.ConversationService;
-import org.fasttrackit.nationsmatch.transfer.ConversationRequest;
+import org.fasttrackit.nationsmatch.transfer.SaveConversationRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ public class ConversationServiceIntegrationTests {
 
     @Test
     void testCreateConversation_whenValidRequest_thanConversationIsSaved(){
-        ConversationRequest request = new ConversationRequest();
+        SaveConversationRequest request = new SaveConversationRequest();
         request.setUserFirstName("Lica");
         request.setUserLastName("Samadaul");
         request.setGroupName("Test");

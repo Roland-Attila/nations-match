@@ -1,32 +1,20 @@
 package org.fasttrackit.nationsmatch.transfer;
 
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-public class ConversationRequest {
+public class SaveConversationRequest {
 
-    @Id
-    private Long id;
     @NotBlank
     private String userFirstName;
     @NotBlank
     private String userLastName;
-    @NotBlank
     private String groupName;
     @NotNull
     private LocalDate messageSentDate;
     private boolean sent;
     private boolean seen;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserFirstName() {
         return userFirstName;
@@ -79,8 +67,7 @@ public class ConversationRequest {
     @Override
     public String toString() {
         return "ConversationRequest{" +
-                "id=" + id +
-                ", userFirstName='" + userFirstName + '\'' +
+                "userFirstName='" + userFirstName + '\'' +
                 ", userLastName='" + userLastName + '\'' +
                 ", groupName='" + groupName + '\'' +
                 ", messageSentDate=" + messageSentDate +

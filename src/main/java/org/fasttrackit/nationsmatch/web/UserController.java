@@ -2,8 +2,11 @@ package org.fasttrackit.nationsmatch.web;
 
 import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.service.UserService;
+import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
 import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,11 +37,11 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<UserResponse>> getUsers(SaveUserRequest request, Pageable pageable) {
-//        Page<UserResponse> users = userService.getUsers(request, pageable);
-//        return new ResponseEntity<>(users, HttpStatus.OK);
-//    }
+    @GetMapping
+    public ResponseEntity<Page<User>> getUsers(GetUsersRequest request, Pageable pageable) {
+        Page<User> users = userService.getUsers(request, pageable);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody @Valid SaveUserRequest request) {

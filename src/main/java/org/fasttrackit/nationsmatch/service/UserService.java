@@ -41,15 +41,18 @@ public class UserService {
 
     public Page<User> getUsers(GetUsersRequest request, Pageable pageable) {
         LOGGER.info("Retrieving Users {}", request);
-        Page<User> users;
-        if (request != null && request.getPartialFirstName() != null && request.getPartialLastName() != null) {
-            return userRepository.findByFirstNameAndLastName(request.getPartialFirstName(),
+        User user = new User();
+        if (request != null && request.getPartialFirstName() != null || request.getPartialLastName() != null) {
+            return userRepository.findByFirstNameOrLastName(request.getPartialFirstName(),
                     request.getPartialLastName(), pageable);
-        }else if (request != null && request.getAge() != null && request.getAgeBetween()
-                != null && request.getSameNationality() != null){
-            return userRepository.findByAgeBetweenAndNationalityMatchesRegex(request.getAge(),
-                    request.getAgeBetween(), request.getSameNationality(), pageable);
-        }else {
+        } else if (request.getMinAge() != null && request.getMaxAge() != null && request.getSameNationality() != null) {
+            return userRepository.findAllByAgeBetweenAndNationality(request.getMinAge(),
+                    request.getMaxAge(), request.getSameNationality(), pageable);
+        } else if (request.getMinAge() != null && request.getMaxAge() != null) {
+            return userRepository.findByAgeBetween(request.getMinAge(), request.getMaxAge(), pageable);
+        } else if (request.getSameNationality() != null) {
+            return userRepository.findByNationality(request.getSameNationality(), pageable);
+        } else {
             return userRepository.findAll(pageable);
         }
 

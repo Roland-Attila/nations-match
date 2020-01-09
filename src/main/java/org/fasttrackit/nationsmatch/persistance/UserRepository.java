@@ -7,7 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Page<User> findByFirstNameAndLastName(String partialFirstName, String partialLastName, Pageable pageable);
+    Page<User> findByFirstNameOrLastName(String partialFirstName, String partialLastName, Pageable pageable);
 
-    Page<User> findByAgeBetweenAndNationalityMatchesRegex(int age, int ageBetween, String sameNationality,Pageable pageable);
+    Page<User> findAllByAgeBetweenAndNationality(int minAge, int maxAge, String sameNationality, Pageable pageable);
+
+    Page<User> findByAgeBetween(int minAge, int maxAge, Pageable pageable);
+
+    Page<User> findByNationality(String sameNationality, Pageable pageable);
 }

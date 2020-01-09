@@ -12,7 +12,6 @@ public class Conversation {
     @Id
     @GeneratedValue
     private Long id;
-    @NotBlank
     private String groupName;
     @NotBlank
     private String userFirstName;
@@ -22,7 +21,6 @@ public class Conversation {
     private LocalDate messageSentDate;
     private boolean sent;
     private boolean seen;
-    @NotNull
     private int activeChats;
 
     public Long getId() {

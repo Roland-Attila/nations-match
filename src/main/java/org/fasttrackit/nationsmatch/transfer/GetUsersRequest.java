@@ -4,8 +4,8 @@ public class GetUsersRequest {
 
     private String partialFirstName;
     private String partialLastName;
-    private Integer age;
-    private Integer ageBetween;
+    private Integer minAge;
+    private Integer maxAge;
     private String sameNationality;
 
     public String getPartialFirstName() {
@@ -24,20 +24,20 @@ public class GetUsersRequest {
         this.partialLastName = partialLastName;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getMinAge() {
+        return minAge;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setMinAge(Integer minAge) {
+        this.minAge = minAge;
     }
 
-    public Integer getAgeBetween() {
-        return ageBetween;
+    public Integer getMaxAge() {
+        return maxAge;
     }
 
-    public void setAgeBetween(Integer ageBetween) {
-        this.ageBetween = ageBetween;
+    public void setMaxAge(Integer maxAge) {
+        this.maxAge = maxAge;
     }
 
     public String getSameNationality() {
@@ -53,8 +53,8 @@ public class GetUsersRequest {
         return "GetUsersRequest{" +
                 "partialFirstName='" + partialFirstName + '\'' +
                 ", partialLastName='" + partialLastName + '\'' +
-                ", age=" + age +
-                ", ageBetween=" + ageBetween +
+                ", minAge=" + minAge +
+                ", maxAge=" + maxAge +
                 ", sameNationality='" + sameNationality + '\'' +
                 '}';
     }
