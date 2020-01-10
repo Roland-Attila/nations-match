@@ -1,7 +1,6 @@
 package org.fasttrackit.nationsmatch.transfer;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class SaveConversationRequest {
@@ -11,7 +10,6 @@ public class SaveConversationRequest {
     @NotBlank
     private String userLastName;
     private String groupName;
-    @NotNull
     private LocalDate messageSentDate;
     private boolean sent;
     private boolean seen;
