@@ -1,23 +1,17 @@
 package org.fasttrackit.nationsmatch.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Conversation {
     @Id
+    @GeneratedValue
     private Long id;
-    @MapsId
-    @ManyToMany
-    private User user;
-
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable()
-    private Set<User> users = new HashSet<>();
     private String groupName;
     @NotBlank
     private String userFirstName;

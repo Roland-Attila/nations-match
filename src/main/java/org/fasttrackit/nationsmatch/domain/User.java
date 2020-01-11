@@ -3,8 +3,11 @@ package org.fasttrackit.nationsmatch.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -20,6 +23,9 @@ public class User {
     private String description;
     private String nationality;
     private String imageUrl;
+
+    @ManyToMany( mappedBy = "users")
+    private Set<Conversation> conversations = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -75,6 +81,29 @@ public class User {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Set<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(Set<Conversation> conversations) {
+        this.conversations = conversations;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return conversations.equals(user.conversations);
+    }
+
+    @Override
+    public int hashCode() {
+        return conversations.hashCode();
     }
 
     @Override
