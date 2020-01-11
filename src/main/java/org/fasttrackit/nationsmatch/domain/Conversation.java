@@ -1,7 +1,6 @@
 package org.fasttrackit.nationsmatch.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,7 +9,6 @@ import java.time.LocalDate;
 @Entity
 public class Conversation {
     @Id
-    @GeneratedValue
     private Long id;
     private String groupName;
     @NotBlank
