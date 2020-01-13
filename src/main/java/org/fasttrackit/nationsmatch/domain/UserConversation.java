@@ -1,45 +1,42 @@
 package org.fasttrackit.nationsmatch.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
+import java.util.Objects;
 
-@Entity
+@Entity(name = "UserConversation")
+@Table(name = "user_conversation")
 public class UserConversation {
-    @Id
-    private Long userId;
-    @Id
-    private Long conversationId;
-    @MapsId
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    @EmbeddedId
+    private UserConversationId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("conversationId")
     private Conversation conversation;
-    @MapsId
-    @ManyToMany(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("userId")
     private User user;
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "conversation_id"))
-    private Set<User> users = new HashSet<>();
 
-    public void addUserToConversation(User user) {
-        users.add(user);
-        user.getConversations().add(this.conversation);
+    @Column(name = "created_on")
+    private Date createdOn = new Date();
+
+    private UserConversation() {
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserConversation(Conversation conversation, User user) {
+        this.conversation = conversation;
+        this.user = user;
+        this.id = new UserConversationId(conversation.getId(), user.getId());
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public UserConversationId getId() {
+        return id;
     }
 
-    public Long getConversationId() {
-        return conversationId;
-    }
-
-    public void setConversationId(Long conversationId) {
-        this.conversationId = conversationId;
+    public void setId(UserConversationId id) {
+        this.id = id;
     }
 
     public Conversation getConversation() {
@@ -58,12 +55,12 @@ public class UserConversation {
         this.user = user;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
     @Override
@@ -73,17 +70,11 @@ public class UserConversation {
 
         UserConversation that = (UserConversation) o;
 
-        return users.equals(that.users);
+        return Objects.equals(conversation, that.conversation) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return (int) (user.getId() ^ (conversationId >>> 32));
+        return Objects.hash(conversation, user);
     }
-
-    //    private String groupName;
-//    private LocalDate messageSentDate;
-//    private boolean messageSent;
-//    private boolean messageSeen;
-
 }

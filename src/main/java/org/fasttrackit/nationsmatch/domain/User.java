@@ -1,22 +1,30 @@
 package org.fasttrackit.nationsmatch.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-@Entity
+@Entity(name = "User")
+@Table(name = "user")
+@NaturalIdCache
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
+
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     @NotBlank
+    @NaturalId
     private String firstName;
     @NotBlank
+    @NaturalId
     private String lastName;
     @NotNull
     private Integer age;
@@ -24,8 +32,16 @@ public class User {
     private String nationality;
     private String imageUrl;
 
-    @ManyToMany( mappedBy = "users")
-    private Set<Conversation> conversations = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<UserConversation> conversations = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(@NotBlank String firstName, @NotBlank String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public Long getId() {
         return id;
@@ -83,27 +99,12 @@ public class User {
         this.imageUrl = imageUrl;
     }
 
-    public Set<Conversation> getConversations() {
+    public List<UserConversation> getConversations() {
         return conversations;
     }
 
-    public void setConversations(Set<Conversation> conversations) {
+    public void setConversations(List<UserConversation> conversations) {
         this.conversations = conversations;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return conversations.equals(user.conversations);
-    }
-
-    @Override
-    public int hashCode() {
-        return conversations.hashCode();
     }
 
     @Override
@@ -117,5 +118,20 @@ public class User {
                 ", nationality='" + nationality + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
     }
 }

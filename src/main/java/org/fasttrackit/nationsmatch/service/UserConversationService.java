@@ -12,12 +12,16 @@ public class UserConversationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserConversation.class);
     private final UserConversationRepository userConversationRepository;
-    private ConversationService conversationService;
-    private UserService userService;
+    private final ConversationService conversationService;
+    private final UserService userService;
 
-    public UserConversationService(UserConversationRepository userConversationRepository) {
+    public UserConversationService(UserConversationRepository userConversationRepository, ConversationService conversationService, UserService userService) {
         this.userConversationRepository = userConversationRepository;
+        this.conversationService = conversationService;
+        this.userService = userService;
     }
+
+    public void createConversation(){}
 
     public void addUserToConversation(SaveUserRequest request) {
         LOGGER.info("Adding user {}", request);

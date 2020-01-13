@@ -1,14 +1,18 @@
 package org.fasttrackit.nationsmatch.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
-@Entity
+@Entity(name = "Conversation")
+@Table(name = "conversation")
 public class Conversation {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -22,6 +26,32 @@ public class Conversation {
     private boolean sent;
     private boolean seen;
     private int activeChats;
+
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<UserConversation> users = new ArrayList<>();
+
+    public Conversation(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void addUserToConversation(User user) {
+        UserConversation userConversation = new UserConversation(this, user);
+        users.add(userConversation);
+        user.getConversations().add(userConversation);
+    }
+
+    public void removeUserFromConversation(User user) {
+        for (Iterator<UserConversation> iterator = users.iterator();
+             iterator.hasNext(); ) {
+            UserConversation userConversation = iterator.next();
+            if (userConversation.getConversation().equals(this) && userConversation.getUser().equals(user)) {
+                iterator.remove();
+                userConversation.getUser().getConversations().remove(userConversation);
+                userConversation.setConversation(null);
+                userConversation.setUser(null);
+            }
+        }
+    }
 
     public Long getId() {
         return id;
@@ -87,6 +117,14 @@ public class Conversation {
         this.activeChats = activeChats;
     }
 
+    public List<UserConversation> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserConversation> users) {
+        this.users = users;
+    }
+
     @Override
     public String toString() {
         return "Conversation{" +
@@ -99,5 +137,19 @@ public class Conversation {
                 ", seen=" + seen +
                 ", activeChats=" + activeChats +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Conversation conversation = (Conversation) o;
+        return Objects.equals(groupName, conversation.groupName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupName);
     }
 }
