@@ -16,11 +16,13 @@ public class ConversationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConversationRepository.class);
     private final ConversationRepository conversationRepository;
+    private final UserService userService;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public ConversationService(ConversationRepository conversationRepository, ObjectMapper objectMapper) {
+    public ConversationService(ConversationRepository conversationRepository, UserService userService, ObjectMapper objectMapper) {
         this.conversationRepository = conversationRepository;
+        this.userService = userService;
         this.objectMapper = objectMapper;
     }
 
