@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,6 +42,17 @@ public class UserController {
     public ResponseEntity<Page<User>> getUsers(GetUsersRequest request, Pageable pageable) {
         Page<User> users = userService.getUsers(request, pageable);
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/user")
+    public String basicUser() {
+        return "hello user";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/admin/all")
+    public String adminLogin() {
+        return "hello admin";
     }
 
     @PutMapping("/{id}")

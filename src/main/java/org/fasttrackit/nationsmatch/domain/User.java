@@ -7,9 +7,7 @@ import org.hibernate.annotations.NaturalIdCache;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity(name = "User")
 @Table(name = "user")
@@ -31,9 +29,14 @@ public class User {
     private String description;
     private String nationality;
     private String imageUrl;
+    private String email;
+    private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<UserConversation> conversations = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role_id")
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -41,6 +44,18 @@ public class User {
     public User(@NotBlank String firstName, @NotBlank String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public User(User user) {
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.age = user.getAge();
+        this.description = user.getDescription();
+        this.nationality = user.getNationality();
+        this.imageUrl = user.getImageUrl();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
     }
 
     public Long getId() {
@@ -99,12 +114,36 @@ public class User {
         this.imageUrl = imageUrl;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<UserConversation> getConversations() {
         return conversations;
     }
 
     public void setConversations(List<UserConversation> conversations) {
         this.conversations = conversations;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -117,6 +156,9 @@ public class User {
                 ", description='" + description + '\'' +
                 ", nationality='" + nationality + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", email='" + email + '\'' +
+                ", conversations=" + conversations +
+                ", roles=" + roles +
                 '}';
     }
 

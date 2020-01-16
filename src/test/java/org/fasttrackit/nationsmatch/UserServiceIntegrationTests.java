@@ -46,6 +46,8 @@ public class UserServiceIntegrationTests {
         assertThat(retrievedUser.getNationality(), is(createdUser.getNationality()));
         assertThat(retrievedUser.getAge(), is(createdUser.getAge()));
         assertThat(retrievedUser.getDescription(), is(createdUser.getDescription()));
+        assertThat(retrievedUser.getEmail(), is(createdUser.getEmail()));
+        assertThat(retrievedUser.getPassword(), is(createdUser.getPassword()));
     }
 
     @Test(expected = ResourceNotFoundException.class)
@@ -57,11 +59,13 @@ public class UserServiceIntegrationTests {
     public void testUpdateUser_whenValidRequest_thenReturnUpdatedUser() {
         User createdUser = createUser();
         SaveUserRequest request = new SaveUserRequest();
-        request.setFirstName(createdUser.getFirstName() + " updated");
-        request.setLastName(createdUser.getLastName() + " updated");
-        request.setNationality(createdUser.getNationality() + " German");
-        request.setDescription(createdUser.getDescription() + " updated");
-        request.setAge(createdUser.getAge() + 4);
+        request.setFirstName(createdUser.getFirstName() + " next");
+        request.setLastName(createdUser.getLastName() + " next");
+        request.setNationality(createdUser.getNationality() + " Irish");
+        request.setDescription(createdUser.getDescription() + " cold");
+        request.setAge(createdUser.getAge() + 2);
+        request.setEmail(createdUser.getEmail()+ " .org");
+        request.setPassword(createdUser.getPassword()+ "ay");
 
         User updatedUser = userService.updateUser(createdUser.getId(), request);
 
@@ -72,6 +76,8 @@ public class UserServiceIntegrationTests {
         assertThat(updatedUser.getDescription(), is(request.getDescription()));
         assertThat(updatedUser.getNationality(), is(request.getNationality()));
         assertThat(updatedUser.getAge(), is(request.getAge()));
+        assertThat(updatedUser.getEmail(), is(request.getEmail()));
+        assertThat(updatedUser.getPassword(), is(request.getPassword()));
     }
 
     @Test(expected = ResourceNotFoundException.class)
@@ -89,11 +95,13 @@ public class UserServiceIntegrationTests {
 
     private User createUser() {
         SaveUserRequest request = new SaveUserRequest();
-        request.setFirstName("Paul");
-        request.setLastName("Oltean");
-        request.setAge(25);
-        request.setDescription("Hard worker, but not workaholic");
-        request.setNationality("Romanian");
+        request.setFirstName("Miki");
+        request.setLastName("Mouse");
+        request.setAge(18);
+        request.setDescription("Giving people a hard time");
+        request.setNationality("American");
+        request.setPassword("miki");
+        request.setEmail("miki@yahoo.com");
 
         User createdUser = userService.createUser(request);
 

@@ -12,10 +12,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
     private final UserRepository userRepository;
@@ -32,6 +36,7 @@ public class UserService {
         User user = objectMapper.convertValue(request, User.class);
         return userRepository.save(user);
     }
+
 
     public User getUser(long id) {
         LOGGER.info("Retrieving user {}", id);
@@ -83,5 +88,13 @@ public class UserService {
         LOGGER.info("Deleting user {}", id);
         userRepository.deleteById(id);
         LOGGER.info("Deleted user {}", id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String userFirstName) throws ResourceNotFoundException {
+        Optional<User> optionalUser = userRepository.findByFirstName(userFirstName);
+        optionalUser.orElseThrow(() -> new ResourceNotFoundException("User with name "
+                + userFirstName + " does not exist."));
+        return optionalUser.map(org.fasttrackit.nationsmatch.domain.UserDetails::new).get();
     }
 }
