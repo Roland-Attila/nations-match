@@ -1,10 +1,8 @@
 package org.fasttrackit.nationsmatch.domain;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 public class UserDetails extends User implements org.springframework.security.core.userdetails.UserDetails {
 
@@ -15,10 +13,11 @@ public class UserDetails extends User implements org.springframework.security.co
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole()))
-                .collect(Collectors.toList());
+        return null;
+//                getRoles()
+//                .stream()
+//                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole()))
+//                .collect(Collectors.toList());
     }
 
     @Override

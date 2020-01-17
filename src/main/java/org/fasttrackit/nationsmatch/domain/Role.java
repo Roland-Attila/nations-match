@@ -1,26 +1,35 @@
 package org.fasttrackit.nationsmatch.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Role {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int roleId;
+    private Long id;
     private String role;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private User user;
 
     public Role() {
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getRole() {

@@ -1,28 +1,24 @@
 package org.fasttrackit.nationsmatch.domain;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "User")
 @Table(name = "user")
-@NaturalIdCache
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@NaturalIdCache
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
 
     @Id
     @GeneratedValue
     private Long id;
     @NotBlank
-    @NaturalId
     private String firstName;
     @NotBlank
-    @NaturalId
     private String lastName;
     @NotNull
     private Integer age;
@@ -34,9 +30,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<UserConversation> conversations = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role_id")
-    private Set<Role> roles = new HashSet<>();
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "user_role_id")
+//    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -138,13 +134,13 @@ public class User {
         this.conversations = conversations;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
 
     @Override
     public String toString() {
@@ -158,7 +154,7 @@ public class User {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", email='" + email + '\'' +
                 ", conversations=" + conversations +
-                ", roles=" + roles +
+//                ", roles=" + roles +
                 '}';
     }
 
