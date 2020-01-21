@@ -50,7 +50,7 @@ public class LoginPageConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().permitAll()
 //                .loginPage("/nations-match");
 //                .loginProcessingUrl("")
-                .defaultSuccessUrl("http://localhost:8086/nations-match/home", true);
+                .defaultSuccessUrl("http://localhost:8086/nations-match/1", true);
 //                .failureUrl("/login.html?error=true")
 ////                .failureHandler(authenticationFailureHandler())
 //                .and()

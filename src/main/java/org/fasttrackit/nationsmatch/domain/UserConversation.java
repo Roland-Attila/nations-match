@@ -25,7 +25,7 @@ public class UserConversation {
     private UserConversation() {
     }
 
-    public UserConversation(Conversation conversation, User user) {
+    UserConversation(Conversation conversation, User user) {
         this.conversation = conversation;
         this.user = user;
         this.id = new UserConversationId(conversation.getId(), user.getId());
@@ -39,12 +39,12 @@ public class UserConversation {
         this.id = id;
     }
 
-    public Conversation getConversation() {
+    Conversation getConversation() {
         return conversation;
     }
 
-    public void setConversation(Conversation conversation) {
-        this.conversation = conversation;
+    void setConversation() {
+        this.conversation = null;
     }
 
     public User getUser() {

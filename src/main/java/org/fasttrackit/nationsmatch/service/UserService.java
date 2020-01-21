@@ -1,9 +1,12 @@
 package org.fasttrackit.nationsmatch.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.fasttrackit.nationsmatch.domain.AnotherUser;
 import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.exeption.ResourceNotFoundException;
+import org.fasttrackit.nationsmatch.persistance.AnotherUserRepository;
 import org.fasttrackit.nationsmatch.persistance.UserRepository;
+import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
 import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
 import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
 import org.slf4j.Logger;
@@ -23,11 +26,13 @@ public class UserService implements UserDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
     private final UserRepository userRepository;
+    private final AnotherUserRepository anotherUserRepository;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, ObjectMapper objectMapper) {
+    public UserService(UserRepository userRepository, AnotherUserRepository anotherUserRepository, ObjectMapper objectMapper) {
         this.userRepository = userRepository;
+        this.anotherUserRepository = anotherUserRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -37,6 +42,10 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public AnotherUser createAnotherUser(AnotherUserRequest request) {
+        AnotherUser anotherUser = objectMapper.convertValue(request, AnotherUser.class);
+        return anotherUserRepository.save(anotherUser);
+    }
 
     public User getUser(long id) {
         LOGGER.info("Retrieving user {}", id);

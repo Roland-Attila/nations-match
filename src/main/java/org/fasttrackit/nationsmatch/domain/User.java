@@ -9,8 +9,6 @@ import java.util.Objects;
 
 @Entity(name = "User")
 @Table(name = "user")
-//@NaturalIdCache
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
 
     @Id
@@ -52,6 +50,7 @@ public class User {
         this.imageUrl = user.getImageUrl();
         this.email = user.getEmail();
         this.password = user.getPassword();
+        this.conversations = user.getConversations();
     }
 
     public Long getId() {
@@ -102,7 +101,7 @@ public class User {
         this.nationality = nationality;
     }
 
-    public String getImageUrl() {
+    private String getImageUrl() {
         return imageUrl;
     }
 
@@ -126,21 +125,13 @@ public class User {
         this.password = password;
     }
 
-    public List<UserConversation> getConversations() {
+    List<UserConversation> getConversations() {
         return conversations;
     }
 
     public void setConversations(List<UserConversation> conversations) {
         this.conversations = conversations;
     }
-
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
 
     @Override
     public String toString() {
@@ -154,7 +145,6 @@ public class User {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", email='" + email + '\'' +
                 ", conversations=" + conversations +
-//                ", roles=" + roles +
                 '}';
     }
 

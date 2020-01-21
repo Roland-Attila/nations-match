@@ -30,8 +30,7 @@ public class Conversation {
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<UserConversation> users = new ArrayList<>();
 
-    public Conversation(String groupName) {
-        this.groupName = groupName;
+    public Conversation() {
     }
 
     public void addUserToConversation(User user) {
@@ -47,7 +46,7 @@ public class Conversation {
             if (userConversation.getConversation().equals(this) && userConversation.getUser().equals(user)) {
                 iterator.remove();
                 userConversation.getUser().getConversations().remove(userConversation);
-                userConversation.setConversation(null);
+                userConversation.setConversation();
                 userConversation.setUser(null);
             }
         }

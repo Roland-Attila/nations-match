@@ -1,7 +1,6 @@
 package org.fasttrackit.nationsmatch.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,10 +12,14 @@ public class UserConversationId implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private AnotherUser anotherUser;
+
     private UserConversationId() {
     }
 
-    public UserConversationId(Long conversationId, Long userId) {
+    UserConversationId(Long conversationId, Long userId) {
         this.conversationId = conversationId;
         this.userId = userId;
     }
@@ -35,6 +38,14 @@ public class UserConversationId implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public AnotherUser getAnotherUser() {
+        return anotherUser;
+    }
+
+    public void setAnotherUser(AnotherUser anotherUser) {
+        this.anotherUser = anotherUser;
     }
 
     @Override

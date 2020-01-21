@@ -1,7 +1,9 @@
 package org.fasttrackit.nationsmatch.web;
 
+import org.fasttrackit.nationsmatch.domain.AnotherUser;
 import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.service.UserService;
+import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
 import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
 import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,12 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody @Valid SaveUserRequest request) {
         User user = userService.createUser(request);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/another-user")
+    public ResponseEntity<AnotherUser> createAnotherUser(@RequestBody @Valid AnotherUserRequest request) {
+        AnotherUser anotherUser = userService.createAnotherUser(request);
+        return new ResponseEntity<>(anotherUser, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
