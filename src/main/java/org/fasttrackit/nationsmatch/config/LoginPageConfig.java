@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -47,10 +47,10 @@ public class LoginPageConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("user/**").hasRole("USER")
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().permitAll();
+                .formLogin().permitAll()
 //                .loginPage("/nations-match");
 //                .loginProcessingUrl("")
-//                .defaultSuccessUrl("", true)
+                .defaultSuccessUrl("http://localhost:8086/nations-match/home", true);
 //                .failureUrl("/login.html?error=true")
 ////                .failureHandler(authenticationFailureHandler())
 //                .and()
@@ -62,6 +62,6 @@ public class LoginPageConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 }

@@ -44,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/home")
     public String basicUser() {
         return "hello user";
     }

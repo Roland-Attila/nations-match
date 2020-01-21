@@ -27,7 +27,7 @@ public class UserDetails extends User implements org.springframework.security.co
 
     @Override
     public String getUsername() {
-        return (super.getFirstName().concat(super.getLastName()));
+        return super.getFirstName();
     }
 
     @Override

@@ -91,10 +91,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userFirstName) throws ResourceNotFoundException {
-        Optional<User> optionalUser = userRepository.findByFirstName(userFirstName);
+    public UserDetails loadUserByUsername(String userEmail) throws ResourceNotFoundException {
+        Optional<User> optionalUser = userRepository.findByEmail(userEmail);
         optionalUser.orElseThrow(() -> new ResourceNotFoundException("User with name "
-                + userFirstName + " does not exist."));
+                + userEmail + " does not exist."));
         return optionalUser.map(org.fasttrackit.nationsmatch.domain.UserDetails::new).get();
     }
 }
