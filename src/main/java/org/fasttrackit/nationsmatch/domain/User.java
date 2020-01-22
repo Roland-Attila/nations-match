@@ -101,7 +101,7 @@ public class User {
         this.nationality = nationality;
     }
 
-    private String getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
@@ -125,7 +125,7 @@ public class User {
         this.password = password;
     }
 
-    List<UserConversation> getConversations() {
+    public List<UserConversation> getConversations() {
         return conversations;
     }
 

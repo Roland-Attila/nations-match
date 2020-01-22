@@ -22,10 +22,10 @@ public class UserConversation {
     @Column(name = "created_on")
     private Date createdOn = new Date();
 
-    private UserConversation() {
+    public UserConversation() {
     }
 
-    UserConversation(Conversation conversation, User user) {
+    public UserConversation(Conversation conversation, User user) {
         this.conversation = conversation;
         this.user = user;
         this.id = new UserConversationId(conversation.getId(), user.getId());
@@ -39,11 +39,11 @@ public class UserConversation {
         this.id = id;
     }
 
-    Conversation getConversation() {
+    public Conversation getConversation() {
         return conversation;
     }
 
-    void setConversation() {
+    public void setConversation() {
         this.conversation = null;
     }
 

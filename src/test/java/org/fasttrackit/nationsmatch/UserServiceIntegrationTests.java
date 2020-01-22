@@ -3,7 +3,7 @@ package org.fasttrackit.nationsmatch;
 import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.exeption.ResourceNotFoundException;
 import org.fasttrackit.nationsmatch.service.UserService;
-import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
+import org.fasttrackit.nationsmatch.transfer.CreateUserRequest;
 import org.fasttrackit.nationsmatch.transfer.UpdateUserRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class UserServiceIntegrationTests {
 
     @Test(expected = TransactionSystemException.class)
     public void testCreateUser_whenInvalidRequest_throwTransactionSystemException() {
-        SaveUserRequest request = new SaveUserRequest();
+        CreateUserRequest request = new CreateUserRequest();
         userService.createUser(request);
     }
 
@@ -48,7 +48,6 @@ public class UserServiceIntegrationTests {
         assertThat(retrievedUser.getAge(), is(createdUser.getAge()));
         assertThat(retrievedUser.getDescription(), is(createdUser.getDescription()));
         assertThat(retrievedUser.getEmail(), is(createdUser.getEmail()));
-        assertThat(retrievedUser.getPassword(), is(createdUser.getPassword()));
     }
 
     @Test(expected = ResourceNotFoundException.class)
@@ -65,7 +64,7 @@ public class UserServiceIntegrationTests {
         request.setNationality(createdUser.getNationality() + " Irish");
         request.setDescription(createdUser.getDescription() + " cold");
         request.setAge(createdUser.getAge() + 2);
-        request.setEmail(createdUser.getEmail()+ " .org");
+        request.setEmail(createdUser.getEmail() + " .org");
 
         User updatedUser = userService.updateUser(createdUser.getId(), request);
 
@@ -93,7 +92,7 @@ public class UserServiceIntegrationTests {
     }
 
     private User createUser() {
-        SaveUserRequest request = new SaveUserRequest();
+        CreateUserRequest request = new CreateUserRequest();
         request.setFirstName("Miki");
         request.setLastName("Mouse");
         request.setAge(18);
@@ -101,6 +100,7 @@ public class UserServiceIntegrationTests {
         request.setNationality("American");
         request.setPassword("miki");
         request.setEmail("miki@yahoo.com");
+        request.setImageUrl("this is me");
 
         User createdUser = userService.createUser(request);
 
@@ -112,6 +112,8 @@ public class UserServiceIntegrationTests {
         assertThat(createdUser.getAge(), is(request.getAge()));
         assertThat(createdUser.getDescription(), is(request.getDescription()));
         assertThat(createdUser.getNationality(), is(request.getNationality()));
+        assertThat(createdUser.getImageUrl(), is(request.getImageUrl()));
+        assertThat(createdUser.getPassword(), is(request.getPassword()));
         return createdUser;
     }
 }

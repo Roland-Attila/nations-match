@@ -16,10 +16,10 @@ public class UserConversationId implements Serializable {
     @MapsId
     private AnotherUser anotherUser;
 
-    private UserConversationId() {
+    public UserConversationId() {
     }
 
-    UserConversationId(Long conversationId, Long userId) {
+    public UserConversationId(Long conversationId, Long userId) {
         this.conversationId = conversationId;
         this.userId = userId;
     }

@@ -7,8 +7,8 @@ import org.fasttrackit.nationsmatch.exeption.ResourceNotFoundException;
 import org.fasttrackit.nationsmatch.persistance.AnotherUserRepository;
 import org.fasttrackit.nationsmatch.persistance.UserRepository;
 import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
+import org.fasttrackit.nationsmatch.transfer.CreateUserRequest;
 import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
-import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
 import org.fasttrackit.nationsmatch.transfer.UpdateUserRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
         this.objectMapper = objectMapper;
     }
 
-    public User createUser(SaveUserRequest request) {
+    public User createUser(CreateUserRequest request) {
         LOGGER.info("Creating user: {}", request);
         User user = objectMapper.convertValue(request, User.class);
         return userRepository.save(user);
@@ -50,8 +50,18 @@ public class UserService implements UserDetailsService {
 
     public User getUser(long id) {
         LOGGER.info("Retrieving user {}", id);
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException
+        User userPresent = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException
                 ("User " + id + " does not exist."));
+        User user = new User();
+        user.setId(userPresent.getId());
+        user.setFirstName(userPresent.getFirstName());
+        user.setLastName(userPresent.getLastName());
+        user.setEmail(userPresent.getEmail());
+        user.setDescription(userPresent.getDescription());
+        user.setImageUrl(userPresent.getImageUrl());
+        user.setNationality(userPresent.getNationality());
+        user.setAge(userPresent.getAge());
+        return user;
     }
 
     public Page<User> getUsers(GetUsersRequest request, Pageable pageable) {
@@ -87,7 +97,7 @@ public class UserService implements UserDetailsService {
 //        return new PageImpl<>(userResponses, pageable, users.getTotalElements());
     }
 
-    public User updateUser(long id , UpdateUserRequest request) {
+    public User updateUser(long id, UpdateUserRequest request) {
         LOGGER.info("Updating user {}: {}", id, request);
         User user = getUser(id);
         BeanUtils.copyProperties(request, user);

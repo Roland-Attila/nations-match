@@ -4,8 +4,8 @@ import org.fasttrackit.nationsmatch.domain.AnotherUser;
 import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.service.UserService;
 import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
+import org.fasttrackit.nationsmatch.transfer.CreateUserRequest;
 import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
-import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
 import org.fasttrackit.nationsmatch.transfer.UpdateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody @Valid SaveUserRequest request) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest request) {
         User user = userService.createUser(request);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }

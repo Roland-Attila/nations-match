@@ -3,16 +3,16 @@ package org.fasttrackit.nationsmatch.transfer;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class SaveUserRequest {
+public class CreateUserRequest {
 
     @NotBlank
     private String firstName;
     @NotBlank
     private String lastName;
-    private String password;
     private String email;
     @NotNull
     private Integer age;
+    private String password;
     private String description;
     @NotBlank
     private String nationality;
@@ -34,14 +34,6 @@ public class SaveUserRequest {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -56,6 +48,14 @@ public class SaveUserRequest {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getDescription() {
@@ -80,18 +80,5 @@ public class SaveUserRequest {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public String toString() {
-        return "SaveUserRequest{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                ", description='" + description + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
     }
 }
