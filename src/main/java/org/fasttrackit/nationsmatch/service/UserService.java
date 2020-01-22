@@ -9,6 +9,7 @@ import org.fasttrackit.nationsmatch.persistance.UserRepository;
 import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
 import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
 import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
+import org.fasttrackit.nationsmatch.transfer.UpdateUserRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -86,7 +87,7 @@ public class UserService implements UserDetailsService {
 //        return new PageImpl<>(userResponses, pageable, users.getTotalElements());
     }
 
-    public User updateUser(long id, SaveUserRequest request) {
+    public User updateUser(long id , UpdateUserRequest request) {
         LOGGER.info("Updating user {}: {}", id, request);
         User user = getUser(id);
         BeanUtils.copyProperties(request, user);

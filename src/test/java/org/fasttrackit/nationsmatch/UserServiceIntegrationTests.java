@@ -4,6 +4,7 @@ import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.exeption.ResourceNotFoundException;
 import org.fasttrackit.nationsmatch.service.UserService;
 import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
+import org.fasttrackit.nationsmatch.transfer.UpdateUserRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,14 +59,13 @@ public class UserServiceIntegrationTests {
     @Test
     public void testUpdateUser_whenValidRequest_thenReturnUpdatedUser() {
         User createdUser = createUser();
-        SaveUserRequest request = new SaveUserRequest();
+        UpdateUserRequest request = new UpdateUserRequest();
         request.setFirstName(createdUser.getFirstName() + " next");
         request.setLastName(createdUser.getLastName() + " next");
         request.setNationality(createdUser.getNationality() + " Irish");
         request.setDescription(createdUser.getDescription() + " cold");
         request.setAge(createdUser.getAge() + 2);
         request.setEmail(createdUser.getEmail()+ " .org");
-        request.setPassword(createdUser.getPassword()+ "ay");
 
         User updatedUser = userService.updateUser(createdUser.getId(), request);
 
@@ -77,12 +77,11 @@ public class UserServiceIntegrationTests {
         assertThat(updatedUser.getNationality(), is(request.getNationality()));
         assertThat(updatedUser.getAge(), is(request.getAge()));
         assertThat(updatedUser.getEmail(), is(request.getEmail()));
-        assertThat(updatedUser.getPassword(), is(request.getPassword()));
     }
 
     @Test(expected = ResourceNotFoundException.class)
     public void testUpdateUser_whenInvalidRequest_thenThrowResourceNotFoundException() {
-        SaveUserRequest request = new SaveUserRequest();
+        UpdateUserRequest request = new UpdateUserRequest();
         userService.updateUser(99999999, request);
     }
 

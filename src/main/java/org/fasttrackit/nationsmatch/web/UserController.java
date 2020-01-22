@@ -6,6 +6,7 @@ import org.fasttrackit.nationsmatch.service.UserService;
 import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
 import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
 import org.fasttrackit.nationsmatch.transfer.SaveUserRequest;
+import org.fasttrackit.nationsmatch.transfer.UpdateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody @Valid SaveUserRequest request) {
+    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody @Valid UpdateUserRequest request) {
         User user = userService.updateUser(id, request);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
