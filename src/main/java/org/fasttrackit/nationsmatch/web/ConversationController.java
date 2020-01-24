@@ -2,12 +2,10 @@ package org.fasttrackit.nationsmatch.web;
 
 import org.fasttrackit.nationsmatch.domain.Conversation;
 import org.fasttrackit.nationsmatch.service.ConversationService;
-import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
 import org.fasttrackit.nationsmatch.transfer.SaveConversationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,23 +31,6 @@ public class ConversationController {
     public ResponseEntity<Conversation> getConversation(@PathVariable("id") Long id) {
         Conversation conversation = conversationService.getConversation(id);
         return new ResponseEntity<>(conversation, HttpStatus.OK);
-    }
-
-    @GetMapping("/another-user")
-    public ResponseEntity<Conversation> getConversationWithAnotherUser(AnotherUserRequest request){
-        Conversation conversation = conversationService.getConversationWithAnotherUser(request);
-        return new ResponseEntity<>(conversation, HttpStatus.OK);
-    }
-
-    @GetMapping("/home")
-    public String basicConversation() {
-        return "hello conversation";
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/admin/all")
-    public String adminLogin() {
-        return "hello admin";
     }
 
     @PutMapping("/{id}")

@@ -23,6 +23,7 @@ public class User {
     private String description;
     private String nationality;
     private String imageUrl;
+    @NotNull
     private String email;
     private String password;
 

@@ -1,12 +1,9 @@
 package org.fasttrackit.nationsmatch.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.fasttrackit.nationsmatch.domain.AnotherUser;
 import org.fasttrackit.nationsmatch.domain.User;
 import org.fasttrackit.nationsmatch.exeption.ResourceNotFoundException;
-import org.fasttrackit.nationsmatch.persistance.AnotherUserRepository;
 import org.fasttrackit.nationsmatch.persistance.UserRepository;
-import org.fasttrackit.nationsmatch.transfer.AnotherUserRequest;
 import org.fasttrackit.nationsmatch.transfer.CreateUserRequest;
 import org.fasttrackit.nationsmatch.transfer.GetUsersRequest;
 import org.fasttrackit.nationsmatch.transfer.UpdateUserRequest;
@@ -27,13 +24,11 @@ public class UserService implements UserDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
     private final UserRepository userRepository;
-    private final AnotherUserRepository anotherUserRepository;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, AnotherUserRepository anotherUserRepository, ObjectMapper objectMapper) {
+    public UserService(UserRepository userRepository, ObjectMapper objectMapper) {
         this.userRepository = userRepository;
-        this.anotherUserRepository = anotherUserRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -41,11 +36,6 @@ public class UserService implements UserDetailsService {
         LOGGER.info("Creating user: {}", request);
         User user = objectMapper.convertValue(request, User.class);
         return userRepository.save(user);
-    }
-
-    public AnotherUser createAnotherUser(AnotherUserRequest request) {
-        AnotherUser anotherUser = objectMapper.convertValue(request, AnotherUser.class);
-        return anotherUserRepository.save(anotherUser);
     }
 
     public User getUser(long id) {
@@ -61,6 +51,7 @@ public class UserService implements UserDetailsService {
         user.setImageUrl(userPresent.getImageUrl());
         user.setNationality(userPresent.getNationality());
         user.setAge(userPresent.getAge());
+        user.setPassword(userPresent.getPassword());
         return user;
     }
 
@@ -80,27 +71,18 @@ public class UserService implements UserDetailsService {
         } else {
             return userRepository.findAll(pageable);
         }
-
-//        List<> userResponses = new ArrayList<>();
-//        for (User user : users.getContent()) {
-//            UserResponse userResponse = new UserResponse();
-//            userResponse.setId(request.getId());
-//            userResponse.setFirstName(request.getFirstName());
-//            userResponse.setLastName(request.getLastName());
-//            userResponse.setAge(request.getAge());
-//            userResponse.setDescription(request.getDescription());
-//            userResponse.setNationality(request.getNationality());
-//            userResponse.setImageUrl(request.getImageUrl());
-//
-//            userResponses.add(userResponse);
-//        }
-//        return new PageImpl<>(userResponses, pageable, users.getTotalElements());
     }
 
     public User updateUser(long id, UpdateUserRequest request) {
         LOGGER.info("Updating user {}: {}", id, request);
         User user = getUser(id);
-        BeanUtils.copyProperties(request, user);
+        if (request.getPassword() != null) {
+            user.setPassword(user.getPassword());
+            BeanUtils.copyProperties(request, user);
+        } else if (!user.getPassword().equals(request.getPassword())) {
+            user.setPassword(request.getPassword());
+            BeanUtils.copyProperties(request, user);
+        }
         return userRepository.save(user);
     }
 

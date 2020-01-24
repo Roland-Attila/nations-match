@@ -28,16 +28,6 @@ public class LoginPageConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
-    //    @Override
-//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-//                .and()
-//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-//                .and()
-//                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
-//    }
-//
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -48,16 +38,7 @@ public class LoginPageConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().permitAll()
-//                .loginPage("/nations-match");
-//                .loginProcessingUrl("")
                 .defaultSuccessUrl("http://localhost:8086/nations-match/1", true);
-//                .failureUrl("/login.html?error=true")
-////                .failureHandler(authenticationFailureHandler())
-//                .and()
-//                .logout()
-//                .logoutUrl("/perform_logout")
-//                .deleteCookies("JSESSIONID");
-////                .logoutSuccessHandler(logoutSuccessHandler());
     }
 
     @Bean

@@ -1,20 +1,14 @@
 package org.fasttrackit.nationsmatch.transfer;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 public class UpdateUserRequest {
 
-    @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
     private String email;
-    @NotNull
     private Integer age;
     private String description;
-    @NotBlank
     private String nationality;
+    private String password;
 
     public String getFirstName() {
         return firstName;
@@ -62,6 +56,14 @@ public class UpdateUserRequest {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
