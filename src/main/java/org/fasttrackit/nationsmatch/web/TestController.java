@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping
+@RequestMapping("/test")
 public class TestController {
 
     private final TestService testService;
