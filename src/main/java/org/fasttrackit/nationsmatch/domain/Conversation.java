@@ -27,6 +27,11 @@ public class Conversation {
     private boolean seen;
     private int activeChats;
 
+    private MessageType type;
+    public enum MessageType{
+        CHAT, JOIN, LEAVE
+    }
+
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<UserConversation> users = new ArrayList<>();
 
@@ -114,6 +119,14 @@ public class Conversation {
 
     public void setActiveChats(int activeChats) {
         this.activeChats = activeChats;
+    }
+
+    public MessageType getType() {
+        return type;
+    }
+
+    public void setType(MessageType type) {
+        this.type = type;
     }
 
     public List<UserConversation> getUsers() {
