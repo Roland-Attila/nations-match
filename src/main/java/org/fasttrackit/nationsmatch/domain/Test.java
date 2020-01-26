@@ -12,6 +12,7 @@ public class Test {
     private Long id;
     private int userId;
     private String text;
+    private String imageUrl;
 
     public Long getId() {
         return id;
@@ -37,12 +38,21 @@ public class Test {
         this.text = text;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "Test{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", text='" + text + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

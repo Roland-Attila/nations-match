@@ -4,6 +4,7 @@ public class TestRequest {
 
     private int userId;
     private String text;
+    private String imageUrl;
 
     public int getUserId() {
         return userId;
@@ -21,11 +22,20 @@ public class TestRequest {
         this.text = text;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "TestRequest{" +
                 "userId=" + userId +
                 ", text='" + text + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }
