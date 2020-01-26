@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.nationsmatch.domain.Conversation;
 import org.fasttrackit.nationsmatch.exeption.ResourceNotFoundException;
 import org.fasttrackit.nationsmatch.persistance.ConversationRepository;
-import org.fasttrackit.nationsmatch.persistance.UserConversationRepository;
 import org.fasttrackit.nationsmatch.transfer.SaveConversationRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +16,11 @@ public class ConversationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConversationRepository.class);
     private final ConversationRepository conversationRepository;
-    private final UserConversationRepository userConversationRepository;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public ConversationService(ConversationRepository conversationRepository, UserService userService,
-                               UserConversationRepository userConversationRepository, ObjectMapper objectMapper) {
+    public ConversationService(ConversationRepository conversationRepository, ObjectMapper objectMapper) {
         this.conversationRepository = conversationRepository;
-        this.userConversationRepository = userConversationRepository;
         this.objectMapper = objectMapper;
     }
 

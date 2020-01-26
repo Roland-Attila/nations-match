@@ -29,9 +29,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<UserConversation> conversations = new ArrayList<>();
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "user_role_id")
-//    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -145,7 +142,6 @@ public class User {
                 ", nationality='" + nationality + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", email='" + email + '\'' +
-                ", conversations=" + conversations +
                 '}';
     }
 

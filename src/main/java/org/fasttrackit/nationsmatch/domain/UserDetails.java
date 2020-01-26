@@ -12,12 +12,7 @@ public class UserDetails extends User implements org.springframework.security.co
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return null;
-//                getRoles()
-//                .stream()
-//                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole()))
-//                .collect(Collectors.toList());
     }
 
     @Override

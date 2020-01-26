@@ -1,10 +1,26 @@
-package org.fasttrackit.nationsmatch.transfer;
+package org.fasttrackit.nationsmatch.domain;
 
-public class TestRequest {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public class ChatContent {
+
+    @Id
+    @GeneratedValue
+    private Long id;
     private int userId;
     private String text;
     private String imageUrl;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getUserId() {
         return userId;
@@ -32,8 +48,9 @@ public class TestRequest {
 
     @Override
     public String toString() {
-        return "TestRequest{" +
-                "userId=" + userId +
+        return "ChatContent{" +
+                "id=" + id +
+                ", userId=" + userId +
                 ", text='" + text + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';

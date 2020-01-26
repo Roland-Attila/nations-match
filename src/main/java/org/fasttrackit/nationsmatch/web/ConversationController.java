@@ -35,7 +35,8 @@ public class ConversationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Conversation> updateConversation(@PathVariable("id") Long id, @RequestBody @Valid SaveConversationRequest request) {
+    public ResponseEntity<Conversation> updateConversation(@PathVariable("id") Long id,
+                                                           @RequestBody @Valid SaveConversationRequest request) {
         Conversation conversation = conversationService.updateConversation(id, request);
         return new ResponseEntity<>(conversation, HttpStatus.OK);
     }
