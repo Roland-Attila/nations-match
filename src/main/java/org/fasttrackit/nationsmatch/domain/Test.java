@@ -10,7 +10,7 @@ public class Test {
     @Id
     @GeneratedValue
     private Long id;
-    private String userName;
+    private int userId;
     private String text;
 
     public Long getId() {
@@ -21,12 +21,12 @@ public class Test {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getText() {
@@ -41,7 +41,7 @@ public class Test {
     public String toString() {
         return "Test{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", userId=" + userId +
                 ", text='" + text + '\'' +
                 '}';
     }

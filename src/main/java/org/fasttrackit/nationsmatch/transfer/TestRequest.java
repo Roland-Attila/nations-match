@@ -2,15 +2,15 @@ package org.fasttrackit.nationsmatch.transfer;
 
 public class TestRequest {
 
-    private String userName;
+    private int userId;
     private String text;
 
-    public String getUserName() {
-        return userName;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getText() {
@@ -24,7 +24,7 @@ public class TestRequest {
     @Override
     public String toString() {
         return "TestRequest{" +
-                "userName='" + userName + '\'' +
+                "userId=" + userId +
                 ", text='" + text + '\'' +
                 '}';
     }

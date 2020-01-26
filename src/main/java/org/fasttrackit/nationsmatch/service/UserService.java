@@ -44,6 +44,12 @@ public class UserService implements UserDetailsService {
                 ("User " + id + " does not exist."));
     }
 
+//    public User getUser(String userLastName, Pageable pageable) {
+//        LOGGER.info("Retrieving user {}", userLastName);
+//        return userRepository.findByUserLastName(userLastName, pageable).orElseThrow(() ->
+//                new ResourceNotFoundException("Sorry! User with " + userLastName + " does not exist."));
+//    }
+
     public Page<User> getUsers(GetUsersRequest request, Pageable pageable) {
         LOGGER.info("Retrieving Users {}", request);
         User user = new User();

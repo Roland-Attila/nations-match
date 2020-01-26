@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+//    Optional<User> findByUserLastName(String partialLastName);
+
     Page<User> findByFirstNameOrLastName(String partialFirstName, String partialLastName, Pageable pageable);
 
     Page<User> findAllByAgeBetweenAndNationality(int minAge, int maxAge, String sameNationality, Pageable pageable);
