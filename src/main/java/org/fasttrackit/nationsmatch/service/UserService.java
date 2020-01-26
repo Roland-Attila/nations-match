@@ -76,13 +76,13 @@ public class UserService implements UserDetailsService {
     public User updateUser(long id, UpdateUserRequest request) {
         LOGGER.info("Updating user {}: {}", id, request);
         User user = getUser(id);
-        if (request.getPassword() != null) {
-            user.setPassword(user.getPassword());
+//        if (user.getPassword() != null) {
+//            user.setPassword(user.getPassword());
+//            BeanUtils.copyProperties(request, user);
+//        } else if (!user.getPassword().equals(request.getPassword()) && request.getPassword()!= null) {
+//            user.setPassword(request.getPassword());
             BeanUtils.copyProperties(request, user);
-        } else if (!user.getPassword().equals(request.getPassword())) {
-            user.setPassword(request.getPassword());
-            BeanUtils.copyProperties(request, user);
-        }
+//        }
         return userRepository.save(user);
     }
 

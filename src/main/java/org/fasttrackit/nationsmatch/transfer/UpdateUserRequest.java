@@ -8,7 +8,7 @@ public class UpdateUserRequest {
     private Integer age;
     private String description;
     private String nationality;
-    private String password;
+//    private String password;
 
     public String getFirstName() {
         return firstName;
@@ -58,13 +58,13 @@ public class UpdateUserRequest {
         this.nationality = nationality;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     @Override
     public String toString() {
