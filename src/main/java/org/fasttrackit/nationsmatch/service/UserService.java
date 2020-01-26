@@ -40,19 +40,8 @@ public class UserService implements UserDetailsService {
 
     public User getUser(long id) {
         LOGGER.info("Retrieving user {}", id);
-        User userPresent = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException
                 ("User " + id + " does not exist."));
-        User user = new User();
-        user.setId(userPresent.getId());
-        user.setFirstName(userPresent.getFirstName());
-        user.setLastName(userPresent.getLastName());
-        user.setEmail(userPresent.getEmail());
-        user.setDescription(userPresent.getDescription());
-        user.setImageUrl(userPresent.getImageUrl());
-        user.setNationality(userPresent.getNationality());
-        user.setAge(userPresent.getAge());
-        user.setPassword(userPresent.getPassword());
-        return user;
     }
 
     public Page<User> getUsers(GetUsersRequest request, Pageable pageable) {
