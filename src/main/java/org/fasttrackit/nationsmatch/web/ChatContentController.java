@@ -31,7 +31,7 @@ public class ChatContentController {
 
     @GetMapping
     public ResponseEntity<Page<ChatContent>> getTests(Pageable pageable) {
-        Page<ChatContent> tests = chatContentService.getTests(pageable);
+        Page<ChatContent> tests = chatContentService.getChats(pageable);
         return new ResponseEntity<>(tests, HttpStatus.OK);
     }
 }

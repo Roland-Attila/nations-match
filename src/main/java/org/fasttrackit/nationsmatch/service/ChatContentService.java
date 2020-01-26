@@ -2,7 +2,6 @@ package org.fasttrackit.nationsmatch.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.nationsmatch.domain.ChatContent;
-import org.fasttrackit.nationsmatch.exeption.ResourceNotFoundException;
 import org.fasttrackit.nationsmatch.persistance.ChatContentRepository;
 import org.fasttrackit.nationsmatch.transfer.ChatContentRequest;
 import org.slf4j.Logger;
@@ -31,12 +30,7 @@ public class ChatContentService {
         return chatContentRepository.save(chatContent);
     }
 
-    public ChatContent getChats(long id) {
-        LOGGER.info("Retrieving chat {}", id);
-        return chatContentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Doesn't exist"));
-    }
-
-    public Page<ChatContent> getTests(Pageable pageable) {
+    public Page<ChatContent> getChats(Pageable pageable) {
         return chatContentRepository.findAll(pageable);
     }
 }
