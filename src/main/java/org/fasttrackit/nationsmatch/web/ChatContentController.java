@@ -25,7 +25,7 @@ public class ChatContentController {
 
     @PostMapping
     public ResponseEntity<ChatContent> createTest(@RequestBody @Valid ChatContentRequest request) {
-        ChatContent chatContent = chatContentService.createTest(request);
+        ChatContent chatContent = chatContentService.createChat(request);
         return new ResponseEntity<>(chatContent, HttpStatus.CREATED);
     }
 

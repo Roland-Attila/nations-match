@@ -24,7 +24,7 @@ public class ChatContentService {
         this.objectMapper = objectMapper;
     }
 
-    public ChatContent createTest(ChatContentRequest request) {
+    public ChatContent createChat(ChatContentRequest request) {
         LOGGER.info("Creating chat");
         ChatContent chatContent = objectMapper.convertValue(request, ChatContent.class);
         return chatContentRepository.save(chatContent);

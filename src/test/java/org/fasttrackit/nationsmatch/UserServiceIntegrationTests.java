@@ -93,13 +93,13 @@ public class UserServiceIntegrationTests {
 
     private User createUser() {
         CreateUserRequest request = new CreateUserRequest();
-        request.setFirstName("Miki");
-        request.setLastName("Mouse");
-        request.setAge(18);
-        request.setDescription("Giving people a hard time");
-        request.setNationality("American");
-        request.setPassword("miki");
-        request.setEmail("miki@yahoo.com");
+        request.setFirstName("Java");
+        request.setLastName("Spring Boot");
+        request.setAge(20);
+        request.setDescription("Problem generator");
+        request.setNationality("Any");
+        request.setPassword("oop");
+        request.setEmail("oop@yahoo.com");
         request.setImageUrl("this is me");
 
         User createdUser = userService.createUser(request);

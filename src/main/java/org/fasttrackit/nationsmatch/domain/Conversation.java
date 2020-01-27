@@ -26,14 +26,7 @@ public class Conversation {
     private boolean sent;
     private boolean seen;
     private int activeChats;
-
-    private String sender;
     private String content;
-    private MessageType type;
-
-    public enum MessageType {
-        CHAT, JOIN, LEAVE
-    }
 
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<UserConversation> users = new ArrayList<>();
@@ -124,28 +117,12 @@ public class Conversation {
         this.activeChats = activeChats;
     }
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public MessageType getType() {
-        return type;
-    }
-
-    public void setType(MessageType type) {
-        this.type = type;
     }
 
     public List<UserConversation> getUsers() {
@@ -167,6 +144,7 @@ public class Conversation {
                 ", sent=" + sent +
                 ", seen=" + seen +
                 ", activeChats=" + activeChats +
+                ", content='" + content + '\'' +
                 '}';
     }
 
